@@ -25,6 +25,7 @@ private:
     int pkg_to_install;
     int pkg_installing;
     QDateTime start_time;
+    int nLine;
 };
 
 #endif // W_INSTALL_H

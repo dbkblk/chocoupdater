@@ -15,7 +15,7 @@ class chocoupdater : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit chocoupdater(QWidget *parent = 0);
+    explicit chocoupdater(QStringList installed, QWidget *parent = 0);
     ~chocoupdater();
     QStringList getCheckedList();
 

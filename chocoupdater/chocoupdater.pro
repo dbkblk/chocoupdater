@@ -22,5 +22,8 @@ HEADERS  += chocoupdater.h \
 FORMS    += chocoupdater.ui \
     w_install.ui
 
+RC_FILE = icon.rc
+
 DISTFILES += \
-    README.md
+    README.md \
+    ../README.md

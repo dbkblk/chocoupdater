@@ -2,23 +2,14 @@
 #include "ui_chocoupdater.h"
 #include "QtCore"
 
-chocoupdater::chocoupdater(QWidget *parent) :
+chocoupdater::chocoupdater(QStringList installed, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::chocoupdater)
 {
     ui->setupUi(this);
 
-    QProcess choco;
-    choco.start("cup -y all --noop -r");
-    choco.waitForFinished(-1);
-    QStringList installed = QString(choco.readAll()).split(QRegExp("[\r\n]+"));
-    installed.removeAll("");
-    installed.removeFirst();
-    installed.removeFirst();
-
     ui->treeWidget->setColumnCount(4);
     ui->treeWidget->setHeaderLabels(QStringList() << "" << "Program" << "Version" << "Update");
-//    qDebug() << installed;
 
     // Vérification des màj : cup -y all --noop -r
 
