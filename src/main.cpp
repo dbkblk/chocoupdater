@@ -4,6 +4,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    chocoupdater w;
 
     QProcess choco;
     choco.start("cup -y all --noop -r");
@@ -26,8 +27,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    chocoupdater w(installed);
     if(nNew > 0){
+        w.prepareInterface(installed);
         w.showMinimized();
     }
     else {

@@ -2,7 +2,7 @@
 #define CHOCOUPDATER_H
 
 #include <QMainWindow>
-#include <QtCore>
+#include <QSystemTrayIcon>
 #include <QtWidgets>
 #include "w_install.h"
 
@@ -15,9 +15,12 @@ class chocoupdater : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit chocoupdater(QStringList installed, QWidget *parent = 0);
+    explicit chocoupdater(QWidget *parent = 0);
     ~chocoupdater();
     QStringList getCheckedList();
+    void createActions();
+    void createTrayIcon();
+    void prepareInterface(QStringList installed);
 
 public slots:
 
@@ -29,6 +32,11 @@ private:
     QTreeWidgetItem *topLevelItem;
     QProcess* process;
     w_install *install;
+    QSystemTrayIcon trayIcon;
+    QAction *restoreAction;
+    QAction *configAction;
+    QAction *quitAction;
+    QMenu *trayIconMenu;
 };
 
 #endif // CHOCOUPDATER_H

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTime>
+#include <QtCore>
 
 namespace Ui {
 class w_install;
