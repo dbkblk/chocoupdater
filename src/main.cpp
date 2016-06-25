@@ -11,23 +11,28 @@ int main(int argc, char *argv[])
     choco.waitForFinished(-1);
     QStringList installed = QString(choco.readAll()).split(QRegExp("[\r\n]+"));
     installed.removeAll("");
-    installed.removeFirst();
-    installed.removeFirst();
 
     int nNew = 0;
     foreach (QString line, installed)
     {
-        // Parse string
-        QStringList versions = line.split("|");
+        // Keep only updates messages for parsing
+        if (!line.contains("|")){
+            installed.removeAll(line);
+        }
+        else {
+            // Parse string
+            QStringList versions = line.split("|");
 
-        // List only updateable programs
-        if (versions[1] != versions[2])
-        {
-           nNew++;
+            // List only updateable programs
+            if (versions[1] != versions[2])
+            {
+               nNew++;
+            }
         }
     }
 
     if(nNew > 0){
+        qDebug() << "Updates found";
         w.prepareInterface(installed);
         w.showMinimized();
     }

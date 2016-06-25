@@ -6,16 +6,23 @@ chocoupdater::chocoupdater(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::chocoupdater)
 {
+    /* Language routine : Get language parameter */
+    QString loc = QLocale::system().name().section('_', 0, 0);
+    translator = new QTranslator(this);
+    translator->load(QString("chocoupd_" + loc + ".qm"),"lang/");
+    qApp->installTranslator(translator);
+
+
     // Create system tray
     createActions();
     createTrayIcon();
-    trayIcon.show();
+    trayIcon.show();    
 
     // Draw ui elements
     ui->setupUi(this);
 
     ui->treeWidget->setColumnCount(4);
-    ui->treeWidget->setHeaderLabels(QStringList() << "" << "Program" << "Version" << "Update");
+    ui->treeWidget->setHeaderLabels(QStringList() << "" << tr("Program") << tr("Version") << tr("Update"));
 
     // Vérification des màj : cup -y all --noop -r
 }
@@ -44,19 +51,17 @@ void chocoupdater::on_pushButton_clicked()
 {
     QProcess prc;
     QString command = QString("inst_helper %1").arg(getCheckedList().join(" "));
-    prc.start(command);
-    prc.waitForFinished(-1);
-//    install = new w_install(getCheckedList());
-//    install->show();
+    prc.startDetached(command);
+    QApplication::exit();
 }
 
 void chocoupdater::createActions()
 {
-    restoreAction = new QAction("&Voir mises à jour", this);
+    restoreAction = new QAction(tr("&Check available updates"), this);
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
-    configAction = new QAction("&Configuration", this);
+    configAction = new QAction(tr("&Configuration"), this);
     connect(configAction, SIGNAL(triggered()), this, SLOT(showNormal()));
-    quitAction = new QAction("&Quitter", this);
+    quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 }
 
@@ -67,10 +72,9 @@ void chocoupdater::createTrayIcon()
     trayIconMenu->addAction(configAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);
-    //trayIcon = new QSystemTrayIcon(this);
     trayIcon.setIcon(QIcon(":/icon.ico"));
     trayIcon.setContextMenu(trayIconMenu);
-    trayIcon.setToolTip("Chocoupd is checking for updates...");
+    trayIcon.setToolTip(tr("Chocoupd is checking for updates..."));
 }
 
 void chocoupdater::prepareInterface(QStringList installed)
@@ -99,4 +103,5 @@ void chocoupdater::prepareInterface(QStringList installed)
             ui->treeWidget->addTopLevelItem(topLevelItem);
         }
     }
+    trayIcon.showMessage(tr("Updates found"), QString(installed.count() + tr(" updates found")));
 }

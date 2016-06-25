@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QtWidgets>
-#include "w_install.h"
 
 namespace Ui {
 class chocoupdater;
@@ -30,13 +29,13 @@ private slots:
 private:
     Ui::chocoupdater *ui;
     QTreeWidgetItem *topLevelItem;
-    QProcess* process;
-    w_install *install;
+//    QProcess* process;
     QSystemTrayIcon trayIcon;
     QAction *restoreAction;
     QAction *configAction;
     QAction *quitAction;
     QMenu *trayIconMenu;
+    QTranslator *translator;
 };
 
 #endif // CHOCOUPDATER_H
