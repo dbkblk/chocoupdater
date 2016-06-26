@@ -57,10 +57,8 @@ void chocoupdater::on_pushButton_clicked()
 
 void chocoupdater::createActions()
 {
-    restoreAction = new QAction(tr("&Check available updates"), this);
+    restoreAction = new QAction(tr("&Open"), this);
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
-    configAction = new QAction(tr("&Configuration"), this);
-    connect(configAction, SIGNAL(triggered()), this, SLOT(showNormal()));
     quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 }

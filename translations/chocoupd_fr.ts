@@ -44,32 +44,35 @@
         <translation>Mise à jour</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="60"/>
         <source>&amp;Check available updates</source>
-        <translation>&amp;Vérifier les mises à jour logicielles</translation>
+        <translation type="vanished">&amp;Vérifier les mises à jour logicielles</translation>
+    </message>
+    <message>
+        <source>&amp;Configuration</source>
+        <translation type="vanished">&amp;Configuration</translation>
+    </message>
+    <message>
+        <location filename="../src/chocoupdater.cpp" line="60"/>
+        <source>&amp;Open</source>
+        <translation>&amp;Ouvrir</translation>
     </message>
     <message>
         <location filename="../src/chocoupdater.cpp" line="62"/>
-        <source>&amp;Configuration</source>
-        <translation>&amp;Configuration</translation>
-    </message>
-    <message>
-        <location filename="../src/chocoupdater.cpp" line="64"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="77"/>
+        <location filename="../src/chocoupdater.cpp" line="75"/>
         <source>Chocoupd is checking for updates...</source>
         <translation>Chocoupd vérifie les mises à jour logicielles...</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="106"/>
+        <location filename="../src/chocoupdater.cpp" line="104"/>
         <source>Updates found</source>
         <translation>Mises à jour trouvées</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="106"/>
+        <location filename="../src/chocoupdater.cpp" line="104"/>
         <source> updates found</source>
         <translation> mises à jour trouvées</translation>
     </message>

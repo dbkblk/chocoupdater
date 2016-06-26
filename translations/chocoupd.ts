@@ -45,31 +45,26 @@
     </message>
     <message>
         <location filename="../src/chocoupdater.cpp" line="60"/>
-        <source>&amp;Check available updates</source>
+        <source>&amp;Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/chocoupdater.cpp" line="62"/>
-        <source>&amp;Configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/chocoupdater.cpp" line="64"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="77"/>
+        <location filename="../src/chocoupdater.cpp" line="75"/>
         <source>Chocoupd is checking for updates...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="106"/>
+        <location filename="../src/chocoupdater.cpp" line="104"/>
         <source>Updates found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="106"/>
+        <location filename="../src/chocoupdater.cpp" line="104"/>
         <source> updates found</source>
         <translation type="unfinished"></translation>
     </message>
