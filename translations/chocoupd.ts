@@ -44,27 +44,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="60"/>
+        <location filename="../src/chocoupdater.cpp" line="57"/>
+        <source>chocolatey will be updated before the other packages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/chocoupdater.cpp" line="68"/>
         <source>&amp;Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="62"/>
+        <location filename="../src/chocoupdater.cpp" line="70"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="75"/>
+        <location filename="../src/chocoupdater.cpp" line="82"/>
         <source>Chocoupd is checking for updates...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="104"/>
+        <location filename="../src/chocoupdater.cpp" line="111"/>
         <source>Updates found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="104"/>
+        <location filename="../src/chocoupdater.cpp" line="111"/>
         <source> updates found</source>
         <translation type="unfinished"></translation>
     </message>

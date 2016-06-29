@@ -32,7 +32,6 @@ private:
 //    QProcess* process;
     QSystemTrayIcon trayIcon;
     QAction *restoreAction;
-    QAction *configAction;
     QAction *quitAction;
     QMenu *trayIconMenu;
     QTranslator *translator;

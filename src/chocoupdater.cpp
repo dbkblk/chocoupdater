@@ -50,7 +50,15 @@ QStringList chocoupdater::getCheckedList(){
 void chocoupdater::on_pushButton_clicked()
 {
     QProcess prc;
-    QString command = QString("inst_helper %1").arg(getCheckedList().join(" "));
+
+    QStringList list = getCheckedList();
+    if(list.contains("chocolatey"))
+    {
+        QMessageBox::information(this, "Chocoupd", tr("chocolatey will be updated before the other packages."));
+        prc.start("inst_helper chocolatey");
+        list.removeAll("chocolatey");
+    }
+    QString command = QString("inst_helper %1").arg(list.join(" "));
     prc.startDetached(command);
     QApplication::exit();
 }
@@ -67,7 +75,6 @@ void chocoupdater::createTrayIcon()
 {
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(restoreAction);
-    trayIconMenu->addAction(configAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);
     trayIcon.setIcon(QIcon(":/icon.ico"));
