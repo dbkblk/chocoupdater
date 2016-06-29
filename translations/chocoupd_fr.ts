@@ -52,27 +52,32 @@
         <translation type="vanished">&amp;Configuration</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="60"/>
+        <location filename="../src/chocoupdater.cpp" line="57"/>
+        <source>chocolatey will be updated before the other packages.</source>
+        <translation>chocolatey va être mis à jour avant les autres logiciels.</translation>
+    </message>
+    <message>
+        <location filename="../src/chocoupdater.cpp" line="68"/>
         <source>&amp;Open</source>
         <translation>&amp;Ouvrir</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="62"/>
+        <location filename="../src/chocoupdater.cpp" line="70"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="75"/>
+        <location filename="../src/chocoupdater.cpp" line="82"/>
         <source>Chocoupd is checking for updates...</source>
         <translation>Chocoupd vérifie les mises à jour logicielles...</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="104"/>
+        <location filename="../src/chocoupdater.cpp" line="111"/>
         <source>Updates found</source>
         <translation>Mises à jour trouvées</translation>
     </message>
     <message>
-        <location filename="../src/chocoupdater.cpp" line="104"/>
+        <location filename="../src/chocoupdater.cpp" line="111"/>
         <source> updates found</source>
         <translation> mises à jour trouvées</translation>
     </message>
