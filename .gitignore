@@ -1,6 +1,7 @@
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
+chocoupd.pro.*
 
 # Folder config file
 Desktop.ini
@@ -48,5 +49,3 @@ Temporary Items
 
 build/
 .qmake.stash
-*.user
-chocoupd.pro.user
