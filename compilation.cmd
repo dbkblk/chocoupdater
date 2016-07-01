@@ -17,7 +17,8 @@ COPY .\build\chocoupd.exe .\bin /Y
 
 echo ## Preparing language files ##
 lrelease chocoupd.pro
-COPY .\translations\chocoupd*.qm .\bin\lang /Y
+COPY /Y .\translations\chocoupd*.qm .\bin\lang
+DEL /F "translations\*.qm"
 
 rmdir debug
 rmdir release
