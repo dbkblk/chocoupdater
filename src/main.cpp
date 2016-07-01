@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
     QStringList installed = QString(choco.readAll()).split(QRegExp("[\r\n]+"));
     installed.removeAll("");
 
-    int nNew = 0;
     foreach (QString line, installed)
     {
         // Keep only updates messages for parsing
@@ -24,22 +23,23 @@ int main(int argc, char *argv[])
             QStringList versions = line.split("|");
 
             // List only updateable programs
-            if (versions[1] != versions[2])
+            if (versions[1] == versions[2])
             {
-               nNew++;
+               installed.removeAll(line);
             }
         }
     }
 
-    if(nNew > 0){
+    qDebug() << installed;
+
+    if(!installed.isEmpty()){
         qDebug() << "Updates found";
         w.prepareInterface(installed);
         w.showMinimized();
     }
     else {
         qDebug() << "No updates found";
-        QApplication::exit();
     }
 
-    return a.exec();
+    return 0;
 }

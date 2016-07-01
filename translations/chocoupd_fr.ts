@@ -81,5 +81,10 @@
         <source> updates found</source>
         <translation> mises à jour trouvées</translation>
     </message>
+    <message>
+        <location filename="../src/chocoupdater.cpp" line="112"/>
+        <source>Chocoupd has found updates!</source>
+        <translation>Chocoupd a trouvé des mises à jour!</translation>
+    </message>
 </context>
 </TS>
