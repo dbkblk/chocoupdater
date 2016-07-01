@@ -60,7 +60,7 @@ void chocoupdater::on_pushButton_clicked()
     }
     QString command = QString("inst_helper %1").arg(list.join(" "));
     prc.startDetached(command);
-    QApplication::exit();
+    QApplication::exit(0);
 }
 
 void chocoupdater::createActions()
@@ -109,4 +109,5 @@ void chocoupdater::prepareInterface(QStringList installed)
         }
     }
     trayIcon.showMessage(tr("Updates found"), QString(installed.count() + tr(" updates found")));
+    trayIcon.setToolTip(tr("Chocoupd has found updates!"));
 }
