@@ -1462,7 +1462,16 @@ build/.obj/chocoupdater.o: src/chocoupdater.cpp src/chocoupdater.h \
 		../../Qt/5.7/Static/include/QtWidgets/qtoolbox.h \
 		../../Qt/5.7/Static/include/QtWidgets/qtoolbutton.h \
 		../../Qt/5.7/Static/include/QtWidgets/qtwidgetsversion.h \
-		build/.ui/ui_chocoupdater.h
+		build/.ui/ui_chocoupdater.h \
+		../../Qt/5.7/Static/include/QtCore/QLocale \
+		../../Qt/5.7/Static/include/QtWidgets/QAction \
+		../../Qt/5.7/Static/include/QtWidgets/QApplication \
+		../../Qt/5.7/Static/include/QtWidgets/QButtonGroup \
+		../../Qt/5.7/Static/include/QtWidgets/QHeaderView \
+		../../Qt/5.7/Static/include/QtWidgets/QLabel \
+		../../Qt/5.7/Static/include/QtWidgets/QMenuBar \
+		../../Qt/5.7/Static/include/QtWidgets/QPushButton \
+		../../Qt/5.7/Static/include/QtWidgets/QTreeWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build\.obj\chocoupdater.o src\chocoupdater.cpp
 
 build/.obj/chocoupd_plugin_import.o: D:/dev/chocoupdater/chocoupd_plugin_import.cpp 
