@@ -11,14 +11,14 @@ HEADERS  += src/chocoupdater.h
 
 FORMS    += src/chocoupdater.ui
 
-RC_FILE = icon.rc
+RC_FILE = res/icon.rc
 
 DISTFILES += \
     README.md
 
 TRANSLATIONS = translations/chocoupd.ts translations/chocoupd_fr.ts
 
-RESOURCES     = resources.qrc
+RESOURCES     = res/resources.qrc
 
 CONFIG(debug, debug|release) {
     DESTDIR = build/debug
