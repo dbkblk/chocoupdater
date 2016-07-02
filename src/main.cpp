@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    qDebug() << installed;
+    qDebug() << "Found the following updates \n" << installed;
 
     if(!installed.isEmpty()){
         qDebug() << "Updates found";
@@ -39,7 +39,8 @@ int main(int argc, char *argv[])
     }
     else {
         qDebug() << "No updates found";
+        return 0;
     }
 
-    return 0;
+    return a.exec();
 }
