@@ -2,6 +2,8 @@
 Thumbs.db
 ehthumbs.db
 chocoupd.pro.*
+.vscode/
+bin/
 
 # Folder config file
 Desktop.ini
@@ -49,5 +51,6 @@ Temporary Items
 
 build/
 .qmake.stash
+chocoupd.pro.user
 chocoupd.pro.user
 chocoupd.pro.user
