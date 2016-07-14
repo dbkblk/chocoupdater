@@ -1,7 +1,7 @@
 {
     "CHECKING" : "is looking for updates...",
     "UPDATE_AVAILABLE" : "There are updates avalaible for this computer.",
-    "SELECT_FILES" : "Select the files you would like to update:",
+    "SELECT_FILES" : "Select the packages you would like to update:",
     "INSTALL_UPDATES" : "Update",
     "INSTALL_CHOCOLATEY" : "Chocolatey is not installed. Would you like to install it?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey is needed to use this program."

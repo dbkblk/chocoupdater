@@ -4,6 +4,8 @@ ehthumbs.db
 chocoupd.pro.*
 .vscode/
 bin/
+*.exe
+archives/
 
 # Folder config file
 Desktop.ini

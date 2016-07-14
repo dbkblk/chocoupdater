@@ -13,17 +13,17 @@ RunWait, "%compiler%" /in %fahk% /out "bin\chocoupd.exe" /icon res\icon.ico /bin
 
 ; Copy language
 RunWait, .tx\tx.exe pull -a,,Hide
+FileDelete, %A_ScriptDir%\bin\lang\*.json
 FileCopy, %A_ScriptDir%\lang\*.json, %A_ScriptDir%\bin\lang\
 FileCopy, %A_ScriptDir%\res\icon.ico, %A_ScriptDir%\bin\
 
-; Ajout des informations de version
-;RunWait, tools\gorc\GoRC.exe /fo bin/resources.res version.rc,,Hide
-;SetWorkingDir, %A_ScriptDir%\bin
-;res = %A_ScriptDir%\tools\reshacker\ResourceHacker.exe -add analyse_ssp.exe, analyse_ssp.exe, resources.res,,,
-;RunWait, %res%,,Hide
-;FileDelete, resources.res
+; Compression
+SetWorkingDir, %A_ScriptDir%\bin
+RunWait, 7za a -tzip -r chocoupd_v%v1%.zip *.*,,Hide
+SetWorkingDir, %A_ScriptDir%
+FileMove, %A_ScriptDir%\bin\chocoupd_v%v1%.zip, %A_ScriptDir%\archives\chocoupd_v%v1%.zip, 1
 
-; Notification utilisateur
+; Notification
 TrayTip, Compilation, Compilation du programme terminée, 5, 1
 
 ExitApp
