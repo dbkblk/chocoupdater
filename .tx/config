@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[chocoupd.main]
+file_filter = lang/tr_<lang>.json
+source_file = lang/tr.json
+source_lang = en

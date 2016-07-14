@@ -12,6 +12,7 @@ RunWait, "%compiler%" /in %fahk% /out "bin\chocoupd_x32.exe" /icon res\icon.ico 
 RunWait, "%compiler%" /in %fahk% /out "bin\chocoupd.exe" /icon res\icon.ico /bin "C:\Program Files\AutoHotkey\Compiler\Unicode 64-bit.bin" /mpress 1,,Hide
 
 ; Copy language
+RunWait, .tx\tx.exe pull -a,,Hide
 FileCopy, %A_ScriptDir%\lang\*.json, %A_ScriptDir%\bin\lang\
 FileCopy, %A_ScriptDir%\res\icon.ico, %A_ScriptDir%\bin\
 
