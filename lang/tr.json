@@ -1,8 +1,10 @@
 {
     "CHECKING" : "is looking for updates...",
+    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
     "UPDATE_AVAILABLE" : "There are updates avalaible for this computer.",
     "SELECT_FILES" : "Select the packages you would like to update:",
     "INSTALL_UPDATES" : "Update",
+    "CONFIGURATION" : "Configuration",
     "INSTALL_CHOCOLATEY" : "Chocolatey is not installed. Would you like to install it?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey is needed to use this program."
 }

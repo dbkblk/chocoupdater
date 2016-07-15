@@ -1,7 +1,7 @@
 {
     "CHECKING" : "ist auf der Suche nach Updates suchen...",
     "UPDATE_AVAILABLE" : "Es sind Updates verfügbar für diesen Computer.",
-    "SELECT_FILES" : "Wählen Sie die Dateien, die Sie aktualisieren möchten:",
+    "SELECT_FILES" : "Select the packages you would like to update:",
     "INSTALL_UPDATES" : "Update",
     "INSTALL_CHOCOLATEY" : "Chocolatey ist nicht installiert. Möchten Sie es installieren?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey ist erforderlich, dieses Programm zu benutzen."
