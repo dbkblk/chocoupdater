@@ -14,8 +14,10 @@ RunWait, "%compiler%" /in %fahk% /out "bin\chocoupd.exe" /icon res\icon.ico /bin
 ; Copy language
 RunWait, .tx\tx.exe pull -a,,Hide
 FileDelete, %A_ScriptDir%\bin\lang\*.json
+FileDelete, %A_ScriptDir%\bin\task.xml
 FileCopy, %A_ScriptDir%\lang\*.json, %A_ScriptDir%\bin\lang\
 FileCopy, %A_ScriptDir%\res\icon.ico, %A_ScriptDir%\bin\
+FileCopy, %A_ScriptDir%\task.xml, %A_ScriptDir%\bin\task.xml
 
 ; Compression
 SetWorkingDir, %A_ScriptDir%\bin

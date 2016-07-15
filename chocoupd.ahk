@@ -2,7 +2,7 @@
 #Include <translations>
 
 version = 0.2
-dev := true
+dev := false
 
 ; Receive arguments
 Loop %0%
@@ -35,23 +35,23 @@ tr(key)
 }
 
 ; Set tray tooltip
-text := tr("CHECKING")
-Menu, Tray, Tip, chocoupd %text%
+CHECKING := tr("CHECKING")
+Menu, Tray, Tip, chocoupd %CHECKING%
 Menu, Tray, NoStandard ; Disable AHK script menu
 
 ; Check for Chocolatey
 IfNotExist, C:\ProgramData\chocolatey\choco.exe
 {
-    text := tr("INSTALL_CHOCOLATEY")
-    MsgBox, 4, chocoupd, %text%
+    INSTALL_CHOCOLATEY := tr("INSTALL_CHOCOLATEY")
+    MsgBox, 4, chocoupd, %INSTALL_CHOCOLATEY%
     IfMsgBox Yes
     {
         ; Install and wait for Chocolatey to be installed
         RunWait *RunAs %comspec% /c @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin && timeout 5
     } else
     {
-        text := tr("INSTALL_CHOCOLATEY_NEEDED")
-        MsgBox % text
+        INSTALL_CHOCOLATEY_NEEDED := tr("INSTALL_CHOCOLATEY_NEEDED")
+        MsgBox % INSTALL_CHOCOLATEY_NEEDED
         ExitApp, 0
     }        
 }
@@ -66,10 +66,11 @@ If !ts
     scheduled := true
     If !silent
     {
-        text := tr("SETUP_TASK")
-        MsgBox, 4, chocoupd, %text%
+        SETUP_TASK := tr("SETUP_TASK")
+        MsgBox, 4, chocoupd, %SETUP_TASK%
         IfMsgBox Yes
         {
+            FileEncoding, UTF-16
             ; Dynamically replace the executable path in the task file
             FileRead, task, %A_ScriptDir%\task.xml
             newPath = <Command>%A_ScriptDir%\chocoupd.exe</Command>
@@ -78,11 +79,12 @@ If !ts
             FileAppend, %str%, %A_ScriptDir%\task.xml
 
             ; Schedule the task
-            RunWait %comspec% /c SCHTASKS /Create /TN chocoupd /xml "%A_ScriptDir%\task.xml",,Hide
+            RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml task.xml,,Hide
         }
     }    
 }
 FileDelete, %A_Temp%\ts.log
+FileEncoding, UTF-8
 
 If !dev
     RunWait, cmd /c choco outdated > %A_Temp%\chocoupd.log -Force,, Hide
@@ -90,17 +92,17 @@ If !dev
 ; Draw the Gui
 Gui, Add, ListView, x10 y80 w480 h350 Checked NoSortHdr ReadOnly -LV0x10, Nom|Local|Distant
 Gui, Add, Picture, x15 y15 w50 h50, icon.ico
-text := tr("INSTALL_UPDATES")
-Gui, Add, Button, x340 y440 w150 h25 gInstall, %text%
-text := tr("CONFIGURATION")
-;Gui, Add, Button, x180 y440 w150 h25 gConfiguration, %text%
+INSTALL_UPDATES := tr("INSTALL_UPDATES")
+Gui, Add, Button, x340 y440 w150 h25 gInstall, %INSTALL_UPDATES%
+CONFIGURATION := tr("CONFIGURATION")
+Gui, Add, Button, x180 y440 w150 h25 gConfiguration, %CONFIGURATION%
 Gui, Font, s10
-text := tr("UPDATE_AVAILABLE")
-Gui, Add, Text, x75 y20, %text%
-text := tr("SELECT_FILES")
-Gui, Add, Text, x75 y45, %text%
+UPDATE_AVAILABLE := tr("UPDATE_AVAILABLE")
+Gui, Add, Text, x75 y20, %UPDATE_AVAILABLE%
+SELECT_FILES := tr("SELECT_FILES")
+Gui, Add, Text, x75 y45, %SELECT_FILES%
 Gui, Add, Text, x10 y445, v%version%
-Gui, Font, Default
+Gui, Font, s8
 
 ; Get a list of programs to update
 If !dev
@@ -133,7 +135,18 @@ If !dev
     LV_ModifyCol(2, 150)
 }
 
-Gui, Show, w500 h475, chocoupd
+Gui, Show, w500 h475 Minimize, chocoupd
+
+; Setup configuration GUI
+Gui, 2:Font, s10
+Gui, 2:Add, Text, x10 y5, Configuration
+Gui, 2:Font, s8
+Gui, 2:Add, Checkbox, x10 y30 vScheduleTasks, Automatically check for updates
+FREQ_EACH_DAY = Each day
+FREQ_EACH_WEEK = Each week
+FREQ_EACH_MONTH = Each month
+Gui, 2:Add, DropDownList, x10 y55 vFrequence, %FREQ_EACH_DAY%||%FREQ_EACH_WEEK%|%FREQ_EACH_MONTH%
+
 return
 
 Install:
@@ -155,7 +168,8 @@ Return
 
 Configuration:
 {
-
+    
+    Gui, 2:Show
 }
 return
 
