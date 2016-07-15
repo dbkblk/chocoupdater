@@ -1,7 +1,7 @@
 ﻿#Include <JSON>
 #Include <translations>
 
-version = 0.2
+version = 0.3a1
 dev := false
 
 ; Receive arguments
