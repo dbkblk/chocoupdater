@@ -1,8 +1,8 @@
 ﻿#Include <JSON>
 #Include <translations>
 
-version = 0.3a1
-dev := false
+version = 0.3a2
+dev := true
 
 ; Receive arguments
 Loop %0%
@@ -72,14 +72,14 @@ If !ts
         {
             FileEncoding, UTF-16
             ; Dynamically replace the executable path in the task file
-            FileRead, task, %A_ScriptDir%\task.xml
+            FileRead, task, %A_ScriptDir%\res\task.xml
             newPath = <Command>%A_ScriptDir%\chocoupd.exe</Command>
             str := RegExReplace(task, "<Command>(.*)</Command>", newPath)
-            FileDelete, %A_ScriptDir%\task.xml
-            FileAppend, %str%, %A_ScriptDir%\task.xml
+            FileDelete, %A_ScriptDir%\res\task.xml
+            FileAppend, %str%, %A_ScriptDir%\res\task.xml
 
             ; Schedule the task
-            RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml task.xml,,Hide
+            RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml res\task.xml,,Hide
         }
     }    
 }
@@ -90,8 +90,8 @@ If !dev
     RunWait, cmd /c choco outdated > %A_Temp%\chocoupd.log -Force,, Hide
 
 ; Draw the Gui
-Gui, Add, ListView, x10 y80 w480 h350 Checked NoSortHdr ReadOnly -LV0x10, Nom|Local|Distant
-Gui, Add, Picture, x15 y15 w50 h50, icon.ico
+Gui, Add, ListView, x10 y80 w480 h350 Checked NoSortHdr ReadOnly 0x2000, Nom|Local|Distant
+Gui, Add, Picture, x15 y15 w50 h50, res\icon.ico
 INSTALL_UPDATES := tr("INSTALL_UPDATES")
 Gui, Add, Button, x340 y440 w150 h25 gInstall, %INSTALL_UPDATES%
 CONFIGURATION := tr("CONFIGURATION")
@@ -138,15 +138,27 @@ If !dev
 Gui, Show, w500 h475 Minimize, chocoupd
 
 ; Setup configuration GUI
-Gui, 2:Font, s10
-Gui, 2:Add, Text, x10 y5, Configuration
-Gui, 2:Font, s8
-Gui, 2:Add, Checkbox, x10 y30 vScheduleTasks, Automatically check for updates
-FREQ_EACH_DAY = Each day
-FREQ_EACH_WEEK = Each week
-FREQ_EACH_MONTH = Each month
-Gui, 2:Add, DropDownList, x10 y55 vFrequence, %FREQ_EACH_DAY%||%FREQ_EACH_WEEK%|%FREQ_EACH_MONTH%
-
+Gui, 2:Font, s10 bold
+Gui, 2:Add, Text, xm ym+10, Configuration
+Gui, 2:Font
+LANGUAGE := tr("LANGUAGE")
+Gui, 2:Add, Text, xm yp+40, %LANGUAGE%
+Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vLang, English|French|German|Italian|Spanish
+Gui, 2:Add, Checkbox, xm yp+40 vScheduleTasks gchkScheduleTasks, Automatically check for updates
+FREQ_EACH_DAY := tr("FREQ_EACH_DAY")
+FREQ_EACH_WEEK := tr("FREQ_EACH_WEEK")
+FREQ_EACH_MONTH := tr("FREQ_EACH_MONTH")
+FREQUENCY := tr("FREQUENCY")
+Gui, 2:Add, Text, xm yp+40 vTxtFrequency, %FREQUENCY%
+Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vFrequence, %FREQ_EACH_DAY%||%FREQ_EACH_WEEK%|%FREQ_EACH_MONTH%
+HOUR := tr("HOUR")
+Gui, 2:Add, Text, xm yp+40 vTxtHour, %HOUR%
+Gui, 2:Add, DropDownList, xm+60 yp-5 w50 vHour, 00|01|02|03|04|05|06|07|08||09|10|12|13|14|15|16|17|18|19|20|21|22|23
+Gui, 2:Add, DropDownList, xm+120 yp w50 vMinute, 00||15|30|45
+BT_CANCEL := tr("BT_CANCEL")
+Gui, 2:Add, Button, xm+60 yp+40 w50 gConfigCancel, %BT_CANCEL%
+BT_SAVE := tr("BT_SAVE")
+Gui, 2:Add, Button, xm+120 yp w50 gConfigSave, %BT_SAVE%
 return
 
 Install:
@@ -164,12 +176,45 @@ Install:
     Run  *RunAs %comspec% /c cup -y %cmd% && timeout 5
     exitapp
 }
-Return
+return
 
 Configuration:
 {
-    
     Gui, 2:Show
+}
+return
+
+chkScheduleTasks:
+{
+    GuiControlGet, ScheduleTasks
+    If ScheduleTasks
+    {
+        GuiControl, Enable, TxtFrequency
+        GuiControl, Enable, Frequence
+        GuiControl, Enable, TxtHour
+        GuiControl, Enable, Hour
+        GuiControl, Enable, Minute        
+    } Else
+    {
+        GuiControl, Disable, TxtFrequency
+        GuiControl, Disable, Frequence
+        GuiControl, Disable, TxtHour
+        GuiControl, Disable, Hour
+        GuiControl, Disable, Minute
+    }
+        
+}
+return
+
+ConfigCancel:
+{
+    Gui, 2:Hide
+}
+return
+
+ConfigSave:
+{
+    Gui, 2:Hide
 }
 return
 

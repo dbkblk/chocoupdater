@@ -1,0 +1,8 @@
+{
+    "CHECKING" : "está en busca de actualizaciones...",
+    "UPDATE_AVAILABLE" : "Hay disponibles actualizaciones para este equipo.",
+    "SELECT_FILES" : "Seleccionar los paquetes que desea actualizar:",
+    "INSTALL_UPDATES" : "Actualización",
+    "INSTALL_CHOCOLATEY" : "Chocolate no está instalado. ¿Quieres instalarlo?",
+    "INSTALL_CHOCOLATEY_NEEDED" : "Chocolate se necesita para utilizar este programa."
+}

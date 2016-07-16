@@ -16,8 +16,8 @@ RunWait, .tx\tx.exe pull -a,,Hide
 FileDelete, %A_ScriptDir%\bin\lang\*.json
 FileDelete, %A_ScriptDir%\bin\task.xml
 FileCopy, %A_ScriptDir%\lang\*.json, %A_ScriptDir%\bin\lang\
-FileCopy, %A_ScriptDir%\res\icon.ico, %A_ScriptDir%\bin\
-FileCopy, %A_ScriptDir%\task.xml, %A_ScriptDir%\bin\task.xml
+FileCopy, %A_ScriptDir%\res\icon.ico, %A_ScriptDir%\bin\res\icon.ico
+FileCopy, %A_ScriptDir%\res\task.xml, %A_ScriptDir%\bin\res\task.xml
 
 ; Compression
 SetWorkingDir, %A_ScriptDir%\bin

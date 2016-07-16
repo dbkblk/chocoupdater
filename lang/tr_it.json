@@ -1,0 +1,8 @@
+{
+    "CHECKING" : "è alla ricerca di aggiornamenti...",
+    "UPDATE_AVAILABLE" : "Non ci sono aggiornamenti disponibili per questo computer.",
+    "SELECT_FILES" : "Selezionare i pacchetti che si desidera aggiornare:",
+    "INSTALL_UPDATES" : "Aggiornamento",
+    "INSTALL_CHOCOLATEY" : "Al cacao non è installato. Vuoi installarlo?",
+    "INSTALL_CHOCOLATEY_NEEDED" : "Cioccolatoso è necessaria per utilizzare questo programma."
+}
