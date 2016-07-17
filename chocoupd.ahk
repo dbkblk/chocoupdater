@@ -63,7 +63,6 @@ FileRead, sch, %A_Temp%\ts.log
 RegExMatch(sch, "chocoupd", ts)
 If !ts
 {
-    scheduled := true
     If !silent
     {
         SETUP_TASK := tr("SETUP_TASK")
@@ -80,8 +79,12 @@ If !ts
 
             ; Schedule the task
             RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml res\task.xml,,Hide
+            scheduled := true
         }
-    }    
+    }
+} Else
+{
+    scheduled := true
 }
 FileDelete, %A_Temp%\ts.log
 FileEncoding, UTF-8
@@ -115,9 +118,8 @@ If !dev
         {
             If (v2 <> v3)
             {
-                n++
                 LV_Add("", v1, v2, v3)
-                LV_ModifyCol(n, 150)
+                n++
             }
         }        
     }
@@ -131,9 +133,10 @@ If !dev
 {
     LV_Add("", "test", "1", "2")
     LV_Add("", "test", "3", "5")
-    LV_ModifyCol(1, 150)
-    LV_ModifyCol(2, 150)
 }
+
+LV_ModifyCol(1, 150)
+LV_ModifyCol(2, 150)
 
 Gui, Show, w500 h475 Minimize, chocoupd
 
@@ -144,13 +147,14 @@ Gui, 2:Font
 LANGUAGE := tr("LANGUAGE")
 Gui, 2:Add, Text, xm yp+40, %LANGUAGE%
 Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vLang, English|French|German|Italian|Spanish
-Gui, 2:Add, Checkbox, xm yp+40 vScheduleTasks gchkScheduleTasks, Automatically check for updates
-FREQ_EACH_DAY := tr("FREQ_EACH_DAY")
-FREQ_EACH_WEEK := tr("FREQ_EACH_WEEK")
-FREQ_EACH_MONTH := tr("FREQ_EACH_MONTH")
-FREQUENCY := tr("FREQUENCY")
-Gui, 2:Add, Text, xm yp+40 vTxtFrequency, %FREQUENCY%
-Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vFrequence, %FREQ_EACH_DAY%||%FREQ_EACH_WEEK%|%FREQ_EACH_MONTH%
+AUTO_CHECK_FOR_UPDATES := tr("AUTO_CHECK_FOR_UPDATES")
+Gui, 2:Add, Checkbox, xm yp+40 vScheduleTasks gchkScheduleTasks, %AUTO_CHECK_FOR_UPDATES%
+;FREQ_EACH_DAY := tr("FREQ_EACH_DAY")
+;FREQ_EACH_WEEK := tr("FREQ_EACH_WEEK")
+;FREQ_EACH_MONTH := tr("FREQ_EACH_MONTH")
+;FREQUENCY := tr("FREQUENCY")
+;Gui, 2:Add, Text, xm yp+40 vTxtFrequency, %FREQUENCY%
+;Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vFrequence, %FREQ_EACH_DAY%||%FREQ_EACH_WEEK%|%FREQ_EACH_MONTH%
 HOUR := tr("HOUR")
 Gui, 2:Add, Text, xm yp+40 vTxtHour, %HOUR%
 Gui, 2:Add, DropDownList, xm+60 yp-5 w50 vHour, 00|01|02|03|04|05|06|07|08||09|10|12|13|14|15|16|17|18|19|20|21|22|23
@@ -180,29 +184,39 @@ return
 
 Configuration:
 {
+    ; Check the schedule box if the task already exists
+    If (scheduled = true)
+    {
+        GuiControl, 2:, ScheduleTasks, 1
+        schTemp := true
+    } Else
+    {
+        GuiControl, 2:, ScheduleTasks, 0
+    }
     Gui, 2:Show
+    Gosub, chkScheduleTasks
 }
 return
 
 chkScheduleTasks:
 {
     GuiControlGet, ScheduleTasks
-    If ScheduleTasks
+    If (ScheduleTasks = 1 or schTemp = true)
     {
-        GuiControl, Enable, TxtFrequency
-        GuiControl, Enable, Frequence
-        GuiControl, Enable, TxtHour
-        GuiControl, Enable, Hour
-        GuiControl, Enable, Minute        
+        GuiControl, 2:Enable, TxtFrequency
+        GuiControl, 2:Enable, Frequence
+        GuiControl, 2:Enable, TxtHour
+        GuiControl, 2:Enable, Hour
+        GuiControl, 2:Enable, Minute
+        schTemp := false 
     } Else
     {
-        GuiControl, Disable, TxtFrequency
-        GuiControl, Disable, Frequence
-        GuiControl, Disable, TxtHour
-        GuiControl, Disable, Hour
-        GuiControl, Disable, Minute
-    }
-        
+        GuiControl, 2:Disable, TxtFrequency
+        GuiControl, 2:Disable, Frequence
+        GuiControl, 2:Disable, TxtHour
+        GuiControl, 2:Disable, Hour
+        GuiControl, 2:Disable, Minute
+    }        
 }
 return
 
