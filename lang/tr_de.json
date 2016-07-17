@@ -1,8 +1,10 @@
 {
     "CHECKING" : "ist auf der Suche nach Updates suchen...",
+    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
     "UPDATE_AVAILABLE" : "Es sind Updates verfügbar für diesen Computer.",
     "SELECT_FILES" : "Wählen Sie die Pakete, die Sie aktualisieren möchten:",
     "INSTALL_UPDATES" : "Update",
+    "CONFIGURATION" : "Configuration",
     "INSTALL_CHOCOLATEY" : "Chocolatey ist nicht installiert. Möchten Sie es installieren?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey ist erforderlich, dieses Programm zu benutzen."
 }

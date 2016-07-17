@@ -1,8 +1,10 @@
 {
     "CHECKING" : "è alla ricerca di aggiornamenti...",
+    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
     "UPDATE_AVAILABLE" : "Non ci sono aggiornamenti disponibili per questo computer.",
     "SELECT_FILES" : "Selezionare i pacchetti che si desidera aggiornare:",
     "INSTALL_UPDATES" : "Aggiornamento",
+    "CONFIGURATION" : "Configuration",
     "INSTALL_CHOCOLATEY" : "Al cacao non è installato. Vuoi installarlo?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Cioccolatoso è necessaria per utilizzare questo programma."
 }

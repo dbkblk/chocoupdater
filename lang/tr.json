@@ -7,6 +7,7 @@
     "CONFIGURATION" : "Configuration",
     "INSTALL_CHOCOLATEY" : "Chocolatey is not installed. Would you like to install it?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey is needed to use this program.",
+    "AUTO_CHECK_FOR_UPDATES" : "Automatically check for updates (each day).",
     "FREQ_EACH_DAY" : "Each day",
     "FREQ_EACH_WEEK" : "Each week",
     "FREQ_EACH_MONTH" : "Each month",

@@ -1,8 +1,10 @@
 {
     "CHECKING" : "está en busca de actualizaciones...",
+    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
     "UPDATE_AVAILABLE" : "Hay disponibles actualizaciones para este equipo.",
     "SELECT_FILES" : "Seleccionar los paquetes que desea actualizar:",
     "INSTALL_UPDATES" : "Actualización",
+    "CONFIGURATION" : "Configuration",
     "INSTALL_CHOCOLATEY" : "Chocolate no está instalado. ¿Quieres instalarlo?",
     "INSTALL_CHOCOLATEY_NEEDED" : "Chocolate se necesita para utilizar este programa."
 }
