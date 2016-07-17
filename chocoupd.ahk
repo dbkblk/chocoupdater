@@ -61,6 +61,7 @@ scheduled := false
 RunWait, %comspec% /c SCHTASKS /Query /TN chocoupd /HRESULT > %A_Temp%\ts.log,,Hide
 FileRead, sch, %A_Temp%\ts.log
 RegExMatch(sch, "chocoupd", ts)
+RegExMatch(sch, "(\d{2}):(\d{2}):\d{2}", time)
 If !ts
 {
     If !silent
@@ -192,6 +193,11 @@ Configuration:
     } Else
     {
         GuiControl, 2:, ScheduleTasks, 0
+    }
+    If time1
+    {
+        GuiControl, 2:ChooseString, Hour, %time1%
+        GuiControl, 2:ChooseString, Minute, %time2%
     }
     Gui, 2:Show
     Gosub, chkScheduleTasks
