@@ -1,8 +1,8 @@
 ﻿#Include <JSON>
 #Include <translations>
 
-version = 0.3a2
-dev := true
+version = 0.3
+dev := false
 
 ; Receive arguments
 Loop %0%
@@ -14,8 +14,53 @@ Loop %0%
     }
 }
 
+; Functions
+removeTask()
+{
+    RunWait, %comspec% /c SCHTASKS /Delete /TN chocoupd -f,,Hide
+}
+
+setDailyTask(hour := 09, minute := 00)
+{
+    removeTask() ; Remove existing task in case of already set (changing date directly ask for password...)
+    ;MsgBox, Task set to %hour%:%minute%
+    FileEncoding, UTF-16
+    ; Dynamically replace the executable path in the task file
+    FileRead, task, %A_ScriptDir%\res\task.xml
+    newPath = <Command>%A_ScriptDir%\chocoupd.exe</Command>
+    task := RegExReplace(task, "<Command>(.*)</Command>", newPath)
+    RegExMatch(task, "<StartBoundary>(.*)(\d{2}):(\d{2}):(\d{2})<\/StartBoundary>", taskdate)
+    newDate = <StartBoundary>%taskdate1%%hour%:%minute%:%taskdate4%</StartBoundary>
+    task := RegExReplace(task, "<StartBoundary>(.*)(\d{2}):(\d{2}):\d{2}<\/StartBoundary>", newDate)
+    FileDelete, %A_ScriptDir%\res\task.xml
+    FileAppend, %task%, %A_ScriptDir%\res\task.xml
+
+    ; Schedule the task
+    RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml res\task.xml,,Hide
+}
+
+getScheduledTime()
+{
+    RunWait, %comspec% /c SCHTASKS /Query /TN chocoupd /HRESULT > %A_Temp%\ts.log,,Hide
+    FileRead, sch, %A_Temp%\ts.log
+    RegExMatch(sch, "(\d{2}):(\d{2}):\d{2}", time)
+    FileDelete, %A_Temp%\ts.log
+    return time
+}
+
+; Load settings
+EnvGet, localDir, LOCALAPPDATA
+IfExist, %localDir%\chocoupd\settings.ini
+{
+    IniRead, l, %localDir%\chocoupd\settings.ini, Settings, lang
+} Else
+{
+    FileCreatedir, %localDir%\chocoupd\
+    l := getLangName(A_Language)
+    IniWrite, %l%, %localDir%\chocoupd\settings.ini, Settings, lang
+}
+
 ; Insert translations routine
-l := getLangName(A_Language)
 ftr = %A_ScriptDir%\lang\tr_%l%.json
 FileEncoding, UTF-8
 FileRead, fstr, %ftr%
@@ -51,18 +96,15 @@ IfNotExist, C:\ProgramData\chocolatey\choco.exe
     } else
     {
         INSTALL_CHOCOLATEY_NEEDED := tr("INSTALL_CHOCOLATEY_NEEDED")
-        MsgBox % INSTALL_CHOCOLATEY_NEEDED
+        MsgBox, , chocoupd, %INSTALL_CHOCOLATEY_NEEDED%
         ExitApp, 0
     }        
 }
 
 ; Create a scheduled task if not exist
 scheduled := false
-RunWait, %comspec% /c SCHTASKS /Query /TN chocoupd /HRESULT > %A_Temp%\ts.log,,Hide
-FileRead, sch, %A_Temp%\ts.log
-RegExMatch(sch, "chocoupd", ts)
-RegExMatch(sch, "(\d{2}):(\d{2}):\d{2}", time)
-If !ts
+time := getScheduledTime()
+If !time
 {
     If !silent
     {
@@ -70,16 +112,7 @@ If !ts
         MsgBox, 4, chocoupd, %SETUP_TASK%
         IfMsgBox Yes
         {
-            FileEncoding, UTF-16
-            ; Dynamically replace the executable path in the task file
-            FileRead, task, %A_ScriptDir%\res\task.xml
-            newPath = <Command>%A_ScriptDir%\chocoupd.exe</Command>
-            str := RegExReplace(task, "<Command>(.*)</Command>", newPath)
-            FileDelete, %A_ScriptDir%\res\task.xml
-            FileAppend, %str%, %A_ScriptDir%\res\task.xml
-
-            ; Schedule the task
-            RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml res\task.xml,,Hide
+            setDailyTask()
             scheduled := true
         }
     }
@@ -87,7 +120,6 @@ If !ts
 {
     scheduled := true
 }
-FileDelete, %A_Temp%\ts.log
 FileEncoding, UTF-8
 
 If !dev
@@ -148,6 +180,14 @@ Gui, 2:Font
 LANGUAGE := tr("LANGUAGE")
 Gui, 2:Add, Text, xm yp+40, %LANGUAGE%
 Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vLang, English|French|German|Italian|Spanish
+dropLang =
+(
+1 = English = en
+2 = French = fr
+3 = German = de
+4 = Italian = it
+5 = Spanish = es
+)
 AUTO_CHECK_FOR_UPDATES := tr("AUTO_CHECK_FOR_UPDATES")
 Gui, 2:Add, Checkbox, xm yp+40 vScheduleTasks gchkScheduleTasks, %AUTO_CHECK_FOR_UPDATES%
 ;FREQ_EACH_DAY := tr("FREQ_EACH_DAY")
@@ -185,6 +225,11 @@ return
 
 Configuration:
 {
+    ; Set in-use language
+    langUsedIndex = ([\d])*\s=\s([\w]*)\s=\s(%l%)
+    RegExMatch(dropLang, langUsedIndex, idx)
+    GuiControl, 2:ChooseString, Lang, %idx2%  
+
     ; Check the schedule box if the task already exists
     If (scheduled = true)
     {
@@ -194,12 +239,17 @@ Configuration:
     {
         GuiControl, 2:, ScheduleTasks, 0
     }
-    If time1
+    time := getScheduledTime()
+    RegExMatch(time, "(\d{2}):(\d{2}):\d{2}", subtime)
+    If subtime1
     {
-        GuiControl, 2:ChooseString, Hour, %time1%
-        GuiControl, 2:ChooseString, Minute, %time2%
+        GuiControl, 2:ChooseString, Hour, %subtime1%
+        GuiControl, 2:ChooseString, Minute, %subtime2%
     }
-    Gui, 2:Show
+
+    Gui, 2:Show, , chocoupd
+
+    ; Configure the scheduled hour
     Gosub, chkScheduleTasks
 }
 return
@@ -235,6 +285,45 @@ return
 ConfigSave:
 {
     Gui, 2:Hide
+
+    ; Save the language and reload interface
+    GuiControlGet, Lang
+    langUsedIndex = ([\d])*\s=\s(%Lang%)\s=\s(\w{2})
+    RegExMatch(dropLang, langUsedIndex, idx)
+    If (l <> idx3)
+    {
+        IniWrite, %idx3%, %localDir%\chocoupd\settings.ini, Settings, lang
+        l = %idx3%
+        LANG_RELOAD := tr("LANG_RELOAD")
+        MsgBox, , chocoupd, %LANG_RELOAD% %l% %idx3%
+    }
+
+    ; Check if the time has changed
+    GuiControlGet, ScheduleTasks
+    GuiControlGet, Hour
+    GuiControlGet, Minute
+    timeChanged =
+    If ScheduleTasks = 1
+    {       
+        time := getScheduledTime()
+        RegExMatch(time, "(\d{2}):(\d{2}):\d{2}", subtime)
+        If (Hour <> subtime1) | (Minute <> subtime2)
+        {
+            timeChanged = 1
+        }
+    }    
+    
+    ; Change task settings
+    If (ScheduleTasks = 0)
+    {
+        removeTask()
+        scheduled := false
+    }
+    If ((ScheduleTasks = 1) && (scheduled = false)) | timeChanged
+    {
+        setDailyTask(Hour, Minute)
+        scheduled := true
+    }
 }
 return
 

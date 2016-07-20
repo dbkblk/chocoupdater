@@ -15,5 +15,6 @@
     "HOUR" : "Hour:",
     "BT_CANCEL" : "Cancel",
     "BT_SAVE" : "Save",
-    "LANGUAGE" : "Language:"
+    "LANGUAGE" : "Language:",
+    "LANG_RELOAD" : "You need to reload the application to use the new language."
 }
