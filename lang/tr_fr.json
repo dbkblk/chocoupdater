@@ -2,7 +2,7 @@
     "CHECKING" : "cherche des mises à jour...",
     "SETUP_TASK" : "Souhaitez-vous configurer une tâche pour que les mises à jour soient vérifiées quotidiennement ?",
     "UPDATE_AVAILABLE" : "Il y a des mises à jour disponibles pour cet ordinateur.",
-    "SELECT_FILES" : "Sélectionnez les packages que vous souhaitez mettre à jour :",
+    "SELECT_FILES" : "Sélectionnez les paquets que vous souhaitez mettre à jour :",
     "INSTALL_UPDATES" : "Mise à jour",
     "CONFIGURATION" : "Configuration",
     "INSTALL_CHOCOLATEY" : "Chocolatey n’est pas installé. Vous souhaitez l’installer ?",

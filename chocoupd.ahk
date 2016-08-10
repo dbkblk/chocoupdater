@@ -2,7 +2,7 @@
 #Include <translations>
 
 version = 0.4
-dev := true
+dev := false
 
 ; Receive arguments
 Loop %0%
@@ -176,7 +176,7 @@ If !dev
         {
             If (v2 <> v3)
             {
-                LV_Add("", v1, v2, v3)
+                LV_Add("Check", v1, v2, v3)
                 n++
             }
         }        
@@ -189,8 +189,8 @@ If !dev
     }
 } Else
 {
-    LV_Add("", "test", "1", "2")
-    LV_Add("", "test", "3", "5")
+    LV_Add("Check", "test", "1", "2")
+    LV_Add("Check", "test", "3", "5")
 }
 
 LV_ModifyCol(1, 150)
