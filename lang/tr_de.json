@@ -1,10 +1,20 @@
 {
     "CHECKING" : "ist auf der Suche nach Updates suchen...",
-    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
+    "SETUP_TASK" : "Möchten Sie eine Aufgabe einrichten, so dass Updates täglich überprüft werden können?",
     "UPDATE_AVAILABLE" : "Es sind Updates verfügbar für diesen Computer.",
     "SELECT_FILES" : "Wählen Sie die Pakete, die Sie aktualisieren möchten:",
     "INSTALL_UPDATES" : "Update",
-    "CONFIGURATION" : "Configuration",
+    "CONFIGURATION" : "Konfiguration",
     "INSTALL_CHOCOLATEY" : "Chocolatey ist nicht installiert. Möchten Sie es installieren?",
-    "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey ist erforderlich, dieses Programm zu benutzen."
+    "INSTALL_CHOCOLATEY_NEEDED" : "Chocolatey ist erforderlich, dieses Programm zu benutzen.",
+    "AUTO_CHECK_FOR_UPDATES" : "Suchen Sie automatisch nach Updates (jeden Tag).",
+    "FREQ_EACH_DAY" : "Jeden Tag",
+    "FREQ_EACH_WEEK" : "Jede Woche",
+    "FREQ_EACH_MONTH" : "Jeden Monat",
+    "FREQUENCY" : "Frequenz:",
+    "HOUR" : "Stunde:",
+    "BT_CANCEL" : "Abbrechen",
+    "BT_SAVE" : "Speichern",
+    "LANGUAGE" : "Sprache:",
+    "LANG_RELOAD" : "Sie müssen die Anwendung für die neue Sprache neu zu laden."
 }

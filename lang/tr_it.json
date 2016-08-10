@@ -1,10 +1,20 @@
 {
     "CHECKING" : "è alla ricerca di aggiornamenti...",
-    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
+    "SETUP_TASK" : "Impostare vuoi un compito così gli aggiornamenti possono essere controllati ogni giorno?",
     "UPDATE_AVAILABLE" : "Non ci sono aggiornamenti disponibili per questo computer.",
     "SELECT_FILES" : "Selezionare i pacchetti che si desidera aggiornare:",
     "INSTALL_UPDATES" : "Aggiornamento",
-    "CONFIGURATION" : "Configuration",
+    "CONFIGURATION" : "Configurazione",
     "INSTALL_CHOCOLATEY" : "Al cacao non è installato. Vuoi installarlo?",
-    "INSTALL_CHOCOLATEY_NEEDED" : "Cioccolatoso è necessaria per utilizzare questo programma."
+    "INSTALL_CHOCOLATEY_NEEDED" : "Cioccolatoso è necessaria per utilizzare questo programma.",
+    "AUTO_CHECK_FOR_UPDATES" : "Controllare automaticamente gli aggiornamenti (ogni giorno).",
+    "FREQ_EACH_DAY" : "Ogni giorno",
+    "FREQ_EACH_WEEK" : "Ogni settimana",
+    "FREQ_EACH_MONTH" : "Ogni mese",
+    "FREQUENCY" : "Frequenza:",
+    "HOUR" : "Ore:",
+    "BT_CANCEL" : "Annulla",
+    "BT_SAVE" : "Salva",
+    "LANGUAGE" : "Lingua:",
+    "LANG_RELOAD" : "Hai bisogno di ricaricare l'applicazione per utilizzare il nuovo linguaggio."
 }

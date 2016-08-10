@@ -1,10 +1,20 @@
 {
     "CHECKING" : "está en busca de actualizaciones...",
-    "SETUP_TASK" : "Would you like to setup a task so updates can be checked daily?",
+    "SETUP_TASK" : "¿Quieres configurar una tarea para que actualizaciones pueden comprobarse diariamente?",
     "UPDATE_AVAILABLE" : "Hay disponibles actualizaciones para este equipo.",
     "SELECT_FILES" : "Seleccionar los paquetes que desea actualizar:",
     "INSTALL_UPDATES" : "Actualización",
-    "CONFIGURATION" : "Configuration",
+    "CONFIGURATION" : "Configuración",
     "INSTALL_CHOCOLATEY" : "Chocolate no está instalado. ¿Quieres instalarlo?",
-    "INSTALL_CHOCOLATEY_NEEDED" : "Chocolate se necesita para utilizar este programa."
+    "INSTALL_CHOCOLATEY_NEEDED" : "Chocolate se necesita para utilizar este programa.",
+    "AUTO_CHECK_FOR_UPDATES" : "Comprobar automáticamente las actualizaciones (cada día).",
+    "FREQ_EACH_DAY" : "Cada día",
+    "FREQ_EACH_WEEK" : "Cada semana",
+    "FREQ_EACH_MONTH" : "Cada mes",
+    "FREQUENCY" : "Frecuencia:",
+    "HOUR" : "Hora:",
+    "BT_CANCEL" : "Cancelar",
+    "BT_SAVE" : "Guardar",
+    "LANGUAGE" : "Idioma:",
+    "LANG_RELOAD" : "Necesita volver a cargar la aplicación para utilizar el nuevo idioma."
 }
