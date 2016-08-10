@@ -1,8 +1,8 @@
 ﻿#Include <JSON>
 #Include <translations>
 
-version = 0.3
-dev := false
+version = 0.4
+dev := true
 
 ; Receive arguments
 Loop %0%
@@ -22,30 +22,55 @@ removeTask()
 
 setDailyTask(hour := 09, minute := 00)
 {
-    removeTask() ; Remove existing task in case of already set (changing date directly ask for password...)
-    ;MsgBox, Task set to %hour%:%minute%
-    FileEncoding, UTF-16
-    ; Dynamically replace the executable path in the task file
-    FileRead, task, %A_ScriptDir%\res\task.xml
-    newPath = <Command>%A_ScriptDir%\chocoupd.exe</Command>
-    task := RegExReplace(task, "<Command>(.*)</Command>", newPath)
-    RegExMatch(task, "<StartBoundary>(.*)(\d{2}):(\d{2}):(\d{2})<\/StartBoundary>", taskdate)
-    newDate = <StartBoundary>%taskdate1%%hour%:%minute%:%taskdate4%</StartBoundary>
-    task := RegExReplace(task, "<StartBoundary>(.*)(\d{2}):(\d{2}):\d{2}<\/StartBoundary>", newDate)
-    FileDelete, %A_ScriptDir%\res\task.xml
-    FileAppend, %task%, %A_ScriptDir%\res\task.xml
+    command =
+    (
+    $action = New-ScheduledTaskAction -Execute "%A_ScriptDir%\chocoupd.exe"
+    $trigger = New-ScheduledTaskTrigger -Daily -At %hour%:%minute%
+    $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable
+    Register-ScheduledTask -TaskName chocoupd -Action $action -Trigger $trigger -Settings $settings
+    )
 
-    ; Schedule the task
-    RunWait, %comspec% /c SCHTASKS /Create /TN chocoupd /xml res\task.xml,,Hide
+    RunWait, PowerShell -Command &{%command%},,Hide
 }
 
 getScheduledTime()
 {
-    RunWait, %comspec% /c SCHTASKS /Query /TN chocoupd /HRESULT > %A_Temp%\ts.log,,Hide
-    FileRead, sch, %A_Temp%\ts.log
-    RegExMatch(sch, "(\d{2}):(\d{2}):\d{2}", time)
-    FileDelete, %A_Temp%\ts.log
-    return time
+    FileDelete, %A_Temp%\cmd
+    command = Get-ScheduledTaskInfo -TaskName chocoupd 
+    RunWait, PowerShell -Command &{%command%} | Out-File %A_Temp%\cmd, , Hide
+    FileRead, cmd, %A_Temp%\cmd
+    RegExMatch(cmd, "NextRunTime.*(\d{2}`:\d{2}`:\d{2})", reg)
+    FileDelete, %A_Temp%\cmd
+    return reg1
+}
+
+changeScheduledTime(hour := 09, minute := 00)
+{
+    command =
+    (
+    $trigger = New-ScheduledTaskTrigger -Daily -At %hour%:%minute%
+    Set-ScheduledTask -TaskName chocoupd -Trigger $trigger
+    )
+
+    RunWait, PowerShell -Command &{%command%},,Hide
+}
+
+getPowerShellVersion()
+{
+    FileDelete, %A_Temp%\cmd
+    RunWait, %comspec% /c @powershell $PSVersionTable.PSVersion > %A_Temp%\cmd, , Hide, var
+    version =
+    Loop, Read, %A_Temp%\cmd
+    {
+        If (A_Index = 4)
+        {
+            RegExMatch(A_LoopReadLine, "(\d)[\s]*(\d)[\s]*(\d*)", reg)
+           version := reg1
+            
+        }    
+    }
+    FileDelete, %A_Temp%\cmd
+    return version
 }
 
 ; Load settings
@@ -179,7 +204,7 @@ Gui, 2:Add, Text, xm ym+10, Configuration
 Gui, 2:Font
 LANGUAGE := tr("LANGUAGE")
 Gui, 2:Add, Text, xm yp+40, %LANGUAGE%
-Gui, 2:Add, DropDownList, xm+80 yp-5 w90 vLang, English|French|German|Italian|Spanish
+Gui, 2:Add, DropDownList, xm+80 yp-5 w150 vLang, English|French|German|Italian|Spanish
 dropLang =
 (
 1 = English = en
@@ -201,9 +226,9 @@ Gui, 2:Add, Text, xm yp+40 vTxtHour, %HOUR%
 Gui, 2:Add, DropDownList, xm+60 yp-5 w50 vHour, 00|01|02|03|04|05|06|07|08||09|10|12|13|14|15|16|17|18|19|20|21|22|23
 Gui, 2:Add, DropDownList, xm+120 yp w50 vMinute, 00||15|30|45
 BT_CANCEL := tr("BT_CANCEL")
-Gui, 2:Add, Button, xm+60 yp+40 w50 gConfigCancel, %BT_CANCEL%
+Gui, 2:Add, Button, xm+30 yp+40 w100 gConfigCancel, %BT_CANCEL%
 BT_SAVE := tr("BT_SAVE")
-Gui, 2:Add, Button, xm+120 yp w50 gConfigSave, %BT_SAVE%
+Gui, 2:Add, Button, xp+130 yp w100 gConfigSave, %BT_SAVE%
 return
 
 Install:
@@ -319,10 +344,13 @@ ConfigSave:
         removeTask()
         scheduled := false
     }
-    If ((ScheduleTasks = 1) && (scheduled = false)) | timeChanged
+    If ((ScheduleTasks = 1) && (scheduled = false))
     {
         setDailyTask(Hour, Minute)
         scheduled := true
+    }
+    If (timeChanged = 1) {
+        changeScheduledTime(Hour, Minute)
     }
 }
 return
