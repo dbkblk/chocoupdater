@@ -127,24 +127,24 @@ IfNotExist, C:\ProgramData\chocolatey\choco.exe
 }
 
 ; Create a scheduled task if not exist
-scheduled := false
-time := getScheduledTime()
-If !time
-{
-    If !silent
-    {
-        SETUP_TASK := tr("SETUP_TASK")
-        MsgBox, 4, chocoupd, %SETUP_TASK%
-        IfMsgBox Yes
-        {
-            setDailyTask()
-            scheduled := true
-        }
-    }
-} Else
-{
-    scheduled := true
-}
+; scheduled := false
+; time := getScheduledTime()
+; If !time
+; {
+;     If !silent
+;     {
+;         SETUP_TASK := tr("SETUP_TASK")
+;         MsgBox, 4, chocoupd, %SETUP_TASK%
+;         IfMsgBox Yes
+;         {
+;             setDailyTask()
+;             scheduled := true
+;         }
+;     }
+; } Else
+; {
+;     scheduled := true
+; }
 FileEncoding, UTF-8
 
 If !dev
